@@ -1,0 +1,341 @@
+body {
+  margin: 0;
+  /* Capa 1: El degradado oscuro | Capa 2: Tu imagen */
+  background: 
+    radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 90%), 
+    url('https://metode.es/wp-content/uploads/2015/02/IC1805_full-1024x682.jpg'); 
+  background-size: 110% 110%; /* Un poco más grande para que tenga margen de movimiento */
+    display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-items: flex-start;
+    /* Centra la imagen siempre */
+  background-position: center;
+
+  /* Evita que la imagen se repita como mosaico */
+  background-repeat: no-repeat;
+
+  /* Fija el fondo para que no se mueva al hacer scroll (opcional) */
+  background-attachment: fixed;
+
+  /* Asegura que el contenedor mida todo el alto de la pantalla */
+  min-height: 100vh;
+
+    animation: movimientoEspacial 20s ease-in-out infinite alternate;
+
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover; /* Ajuste perfecto sin estirar */
+    background-attachment: scroll; 
+  }
+}
+
+.flower {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+  left: 150px;       /* Esto la empuja desde el borde izquierdo hacia adentro */
+  top: 50%;          /* La mantiene centrada verticalmente */
+  transform: translateY(-50%); /* Solo ajusta el centro vertical */
+  z-index: 1;        /* Menor z-index para no bloquear el contenido */
+  pointer-events: none;  /* Permite clickear a través de ella */
+}
+
+
+.petalos {
+  position: absolute;
+  transform-origin: bottom center;
+  left: 50%;
+  top: 50%;
+  width: 55px;
+  height: 110px;
+  background-color: #fbff00;
+  border-radius: 50%;
+  transform-origin: bottom center;
+
+  /* Agregamos esto: si no hay variable, usa 0deg */
+  --rotacion: 0deg;
+
+  /* Forzamos que el transform inicial SIEMPRE sea centrado */
+  transform: translate(-50%, -125%) rotate(var(--rotacion));
+  box-shadow: 0 0 20px rgba(255, 136, 0, 0.5); /* Resplandor dorado */
+  animation: gilo-petalo 5s linear infinite, brilloAmarillo 3s ease-in-out infinite;
+  border: 2px solid #331a00;
+}
+
+
+@keyframes brilloAmarillo {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 10px gold); }
+}
+
+/* 2. Definimos el movimiento completo en la animación */
+@keyframes gilo-petalo {
+    0% {
+        /* Aquí forzamos la posición inicial para TODOS */
+        transform: translate(-50%, -100%) rotate(var(--rotacion));
+        opacity: 1;
+    }
+    100% {
+        /* Aquí el destino final */
+        transform: translate(-50%, -100%) rotate(calc(var(--rotacion) + 360deg));
+    }
+}
+
+@keyframes resplandor {
+  0%, 100% { 
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6)); 
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); 
+  }
+}
+
+@keyframes movimientoEspacial {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+/* PETALOS EN CRUZ (ADELANTE) */
+.petalos:nth-of-type(1) { --rotacion: 0deg;   z-index: 10; }
+.petalos:nth-of-type(3) { --rotacion: 90deg;  z-index: 10; }
+.petalos:nth-of-type(5) { --rotacion: 180deg; z-index: 10; }
+.petalos:nth-of-type(7) { --rotacion: 270deg; z-index: 10; }
+
+/* PETALOS EN ESQUINAS (ATRÁS) */
+.petalos:nth-of-type(2) { --rotacion: 45deg;  z-index: 1; opacity: 0.9; }
+.petalos:nth-of-type(4) { --rotacion: 135deg; z-index: 1; opacity: 0.9; }
+.petalos:nth-of-type(6) { --rotacion: 225deg; z-index: 1; opacity: 0.9; }
+.petalos:nth-of-type(8) { --rotacion: 315deg; z-index: 1; opacity: 0.9; }
+
+
+
+.center {
+    position: absolute;
+    z-index: 10; 
+    width: 60px;
+    height: 60px;
+    background-color: #791d01; /* Centro amarillo */
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Resplandor dorado */
+      /* Mantén tus estilos de posición aquí (top, left, etc.) */
+  animation: resplandor 4s ease-in-out infinite;
+  border: 2px solid #331a00;
+}
+
+/* Contenedor principal para alinear el botón y Snoopy */
+.imagenes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Esto obliga al enlace a verse como el botón neón */
+a.boton {
+    all: unset !important; /* Borra el azul, el morado y la línea */
+    display: inline-block !important;
+    cursor: pointer !important;
+    
+    /* Texto */
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 24px !important;
+    padding: 15px 40px !important;
+    
+    /* Estructura del Botón */
+    background: 
+        linear-gradient(#000, #000) padding-box, 
+        linear-gradient(to right, #00bfff, #ff00ff) border-box !important;
+    border: 3px solid transparent !important;
+    border-radius: 15px !important;
+    
+    /* Brillo */
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5) !important;
+    transition: 0.3s !important;
+    z-index: 1000;
+    position: relative;
+    margin: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Para que no cambie a morado NUNCA */
+a.boton:visited, a.boton:active, a.boton:hover {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+/* Imagen de Snoopy pequeña al lado del botón */
+.snoppy-izquierda {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.snoppy-derecha {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+/* El diseño del botón neón que ya tenías */
+a.boton {
+    padding: 15px 40px;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    border-radius: 15px;
+    background: 
+        linear-gradient(#000, #000) padding-box, 
+        linear-gradient(to right, #00bfff, #ff00ff) border-box;
+    border: 3px solid transparent;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.bloque {
+  background-color: rgba(255, 192, 57, 0.479); /* Fondo casi transparente */
+  backdrop-filter: blur(10px);               /* Efecto de cristal esmerilado */                 
+  color: white; /* Texto en blanco para legibilidad */
+  -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 182, 74, 0.3);
+  width: 300px;           /* Ancho reducido */
+  max-height: 70vh;       /* Para que no se salga de la pantalla */
+  overflow-y: auto;       /* Si la letra es larga, permite hacer scroll interno */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+#palabras-lindas {
+  margin-top: 50px;       /* Separación pequeña del otro bloque */
+  margin-bottom: 50px;    /* Espacio al final para poder hacer scroll completo */
+}
+
+.contenedor-principal {
+  display: flex;
+  justify-content: space-around; /* Separa los elementos */
+  align-items: center;           /* Los centra verticalmente */
+  width: 90%;
+  max-width: 1200px;
+  height: 80vh;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+
+@media (max-width: 480px) {
+   .contenedor-principal {
+    flex-direction: column; /* Alinea los elementos en vertical */
+    justify-content: flex-start; /* Los manda hacia arriba */
+    padding-top: 50px; /* Espacio superior para que no pegue al borde */
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .flower {
+    /* Quitamos el centrado absoluto que pueda estar estorbando */
+    position: relative !important; 
+    transform: scale(0.8); /* La hacemos un poco más pequeña para que quepa bien */
+    margin-bottom: 20px; /* SEPARACIÓN: Empuja el bloque hacia abajo */
+    left: 1% !important;
+    top: auto !important;
+  }
+}
+
+.linea {
+  opacity: 0.2; /* Letra apagada */
+  transition: all 0.5s ease;
+  margin: 20px 0;
+  font-size: 1.2rem;
+    text-align: center;   /* Centra el texto horizontalmente */
+  display: block;       /* Asegura que ocupe todo el ancho */
+  width: 100%;          /* Le da el ancho completo al contenedor */
+  
+  /* Mantén tus otros estilos (opacity, transition, etc.) aquí abajo */
+  opacity: 0.2;
+  transition: all 0.5s ease;
+}
+
+/* EL PUNTO ES OBLIGATORIO */
+.linea.activa {
+  opacity: 1 !important;
+  color: #ffeb3b !important; /* Color amarillo */
+  transform: scale(1.1);
+  text-shadow: 0 0 10px gold;
+}
+
+#letra-mom {
+  height: 350px;    /* Altura fija para scroll interno */
+  overflow-y: auto; /* Scroll interno del bloque */
+  padding-right: 10px;
+  overscroll-behavior: contain;  /* Evita que el scroll del bloque afecte la página */
+    display: flex;
+  flex-direction: column;
+  align-items: center;  /* Centra las líneas si usas flex */
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .bloque {
+    width: 85%;
+    max-height: 50vh; /* 🔥 antes 70vh → ahora más compacto */
+    padding: 15px;    /* 🔥 menos relleno */
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .linea {
+    font-size: 0.95rem;
+    margin: 10px 0;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .contenedor {
+    padding-top: 20px; /* menos espacio arriba */
+  }
+}
+
+@media (max-width: 480px) {
+  #letra-mom {
+    width: 90%;            /* El cuadro ocupa casi todo el ancho del cel */
+    margin: 0 auto;        /* Lo centra horizontalmente */
+    text-align: center;    /* Centra todas las letras */
+    padding: 10px;         /* Espacio interno para que el texto no toque los bordes */
+    height: 280px;         /* Altura fija para scroll interno */
+    overflow-y: auto;      /* Scroll interno del bloque */
+    overscroll-behavior: contain;  /* Evita que afecte el scroll de la página */
+  }
+
+  .linea {
+    font-size: 1.1rem;     /* Un tamaño de letra cómodo para leer en cel */
+    text-align: center;    /* REFUERZO: Centra cada frase */
+    width: 100%;           /* Ocupa todo el ancho del cuadro café */
+    display: block;
+  }
+}
