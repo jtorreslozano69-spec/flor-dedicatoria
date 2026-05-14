@@ -1,7 +1,7 @@
 body {
   margin: 0;
   /* Capa 1: El degradado oscuro | Capa 2: Tu imagen */
-  background: 
+  background: /*el link se la foto del fondo*/
     radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 90%), 
     url('https://metode.es/wp-content/uploads/2015/02/IC1805_full-1024x682.jpg'); 
   background-size: 110% 110%; /* Un poco más grande para que tenga margen de movimiento */
